@@ -14,7 +14,7 @@ load_dotenv()
 TOKEN = os.getenv("DISCORD_TOKEN")
 
 # set up bot client 
-bot = commands.Bot(command_prefix='!')
+bot = commands.Bot(command_prefix='foodBot!')
 
 # events 
 @bot.event
@@ -23,19 +23,22 @@ async def on_ready():
         f"FoodBot has connected to Discord!\n"
     )
 
-@bot.command(name='food')
+# commands
+@bot.command(name='food', help="Retrieves a random meal.")
 async def food(context):
     result = Service.get_random_food()
     print(f"Summoned from {context.guild}")
     await context.send(f"You are eating {result['name']}")
     await context.send(result['image'])
 
-@bot.command(name='drink')
+@bot.command(name='drink', help="Retrieves a random alcoholic drink.")
 async def food(context):
     result = Service.get_random_drink()
     print(f"Summoned from {context.guild}")
     await context.send(f"You are drinking {result['name']}")
     await context.send(result['image'])
+
+
 
 
 bot.run(TOKEN)
